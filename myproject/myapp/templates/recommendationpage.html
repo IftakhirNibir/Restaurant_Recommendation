@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recommended Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .card:hover {
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    </style> 
+</head>
+  <body>
+    <div class="container">
+      <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+          <a class="nav-item nav-link link-body-emphasis active" href="{%url 'homepage' %}">Home</a>
+          <a class="nav-item nav-link link-body-emphasis" href="{%url 'trending' %}">Trending</a>
+          <a class="nav-item nav-link link-body-emphasis" href="{%url 'recommendation_part1' %}">Main Cuisine Based</a>
+        </nav>
+      </div>
+        <div class="image" style="text-align: center; margin-top: 25px;">
+        <img src="https://img.freepik.com/free-vector/tasty-fast-food-collection_1308-133072.jpg" alt="wait" width="350px">
+    </div>
+        <h2 style="text-align: center;">Search main cuisine here</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" list="suggestions" name="input" class="form-control" placeholder="Enter a food category name" value="{{request.POST.input}}">
+        <datalist id="suggestions">
+          <option value="Indian"></option>
+          <option value="Fried Chicken"></option>
+          <option value="Cakes & Bakery"></option>
+          <option value="Pizza"></option>
+          <option value="Thai"></option>
+          <option value="Rice Dishes"></option>
+          <option value="Juice Corner"></option>
+          <option value="Biryani"></option>
+          <option value="Cafe"></option>
+          <option value="Kebab"></option>
+          <option value="Mexican"></option>
+          <option value="Dumpling"></option>
+          <option value="Burgers"></option>
+          <option value="Curry"></option>
+          <option value="Chotpoti & Fuchka"></option>
+          <option value="Steak"></option>
+          <option value="Snacks"></option>
+          <option value="Bangladeshi"></option>
+          <option value="Fast Food"></option>
+          <option value="Beverage"></option>
+          <option value="Chinese"></option>
+          <option value="Japanese"></option>
+          <option value="Dessert"></option>
+          <option value="Italian"></option>
+          <option value="Seafood"></option>
+          <option value="Asian"></option>
+        </datalist>
+    </form>
+
+    {% if rows %}
+    <div class="table-responsive" style="margin-top: 10px;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><ion-icon name="home-outline" style="font-size: 20px;"></ion-icon> Restaurant Name </th>
+                    <th>Negative Sentiment <img src="https://media.tenor.com/YMC8o25pWBAAAAAC/angry-emoji.gif" alt="" width="25px"></th>
+                    <th>Positive Sentiment <img src="https://media.tenor.com/Wq-MvpjAJksAAAAC/emojilaugh-emoji.gif" alt="" width="28px"></th>
+                    <th><ion-icon name="business-outline" style="font-size: 20px;"></ion-icon> Location</th>
+                  </tr>
+            </thead>
+            <tbody>
+                {% for item in rows %}
+                <tr>
+                  <td><a style="text-decoration: none; color: black;" href="{%url 'recommendation_part_two' item.1 %}">{{ item.1 }}</a></td>
+                  <td>{{ item.2 }}</td>
+                  <td>{{ item.3 }}</td>
+                  <td>{{ item.4 }}</td>
+              </tr>              
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    
+    {% if error_message %}
+    <div class="message" style="text-align: center;margin-top: 35px;">
+    <h3 style="color: red;">{{error_message}}</h3>
+    </div>
+    {% endif %}
+    {% endif %}
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
