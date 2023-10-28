@@ -18,6 +18,7 @@
               <a class="nav-item nav-link link-body-emphasis active" href="{%url 'homepage' %}">Home</a>
               <a class="nav-item nav-link link-body-emphasis" href="{%url 'trending' %}">Trending</a>
               <a class="nav-item nav-link link-body-emphasis" href="{%url 'recommendation_part1' %}">Main Cuisine Based</a>
+              <a class="nav-item nav-link link-body-emphasis" href="{%url 'cluster' %}">Clustering</a>
             </nav>
           </div>
 
@@ -45,7 +46,7 @@
         <h1>Top Trending Restaurant are given below....</h1>
         <div class="dropdown">
           <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="margin-bottom: 10px;">
-            <sub><ion-icon name="ellipsis-vertical-circle-outline" style="font-size: 18px;"></ion-icon></sub> Select more to view more products
+            <sub><ion-icon name="ellipsis-vertical-circle-outline" style="font-size: 18px;"></ion-icon></sub> Select more to view more restaurants
           </button>
             <form action="" method="post">
               {% csrf_token %}

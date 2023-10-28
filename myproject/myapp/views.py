@@ -3,6 +3,16 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from .models import Restaurant_DB
+import pickle 
+
+
+# Load the saved model from the file
+with open('kmeans_model.pkl', 'rb') as file:
+    loaded_model = pickle.load(file)
+
+# Load the previously fitted vectorizer
+with open('vectorizer.pkl', 'rb') as file:
+    vectorizer = pickle.load(file)
 
 # Create your views here.
 
@@ -110,3 +120,18 @@ def recommendation2_page(request, restu):
         error_text = "Not found any"
         return render(request,'recommendationpage2.html',{'error_message': error_text})
     
+
+def Cluster(request):
+    df = pd.read_csv("kmeans.csv")
+    clusters = {}
+    if request.method == "POST":
+        value = request.POST.get('abc')
+        Y = vectorizer.transform([value])
+        prediction = loaded_model.predict(Y)
+        a =  prediction[0]
+        clusters[a] = df[df['cluster_id'] == a].values.tolist()
+    else:
+        a = ""
+    context = {'clusters': clusters, 'my_list': a}
+    return render(request,'cluster.html',context)
+
